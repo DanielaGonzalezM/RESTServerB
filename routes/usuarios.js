@@ -20,8 +20,8 @@ router.post(
   "/",
   [
     check("nombre", "El nombre es obligatorio").not().isEmpty(),
-    check("password", "El password debe ser más de 6 letras").isLength({min:6}),
-    check("rol", "No es un rol Válido").isIn(["ADMIN_ROLE","USER_ROLE"]),
+    check("password", "El password debe ser más de 6 letras").isLength({ min: 6 }),
+    check("rol", "No es un rol Válido").isIn(["ADMIN_ROLE", "USER_ROLE"]),
     check("correo", "El correo no es válido").isEmail(),
     validarCampos
   ],
