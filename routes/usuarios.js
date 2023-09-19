@@ -9,7 +9,7 @@ const {
   usuariosPatch,
 } = require("../controllers/usuarios");
 const { validarCampos } = require("../middlewares/validar-campos");
-const Role = require("../models/role");
+const { isValidRole } = require("../helpers/db-validators");
 
 const router = Router();
 
@@ -24,14 +24,8 @@ router.post(
     check("password", "El password debe ser más de 6 letras").isLength({
       min: 6,
     }),
-    // check("rol", "No es un rol Válido").isIn(["ADMIN_ROLE", "USER_ROLE"]),
     check("correo", "El correo no es válido").isEmail(),
-    check("rol").custom(async (rol = "") => {
-      const existeRol = await Role.findOne({ rol });
-      if(!existeRol){
-        throw new Error(`El rol ${rol} no existe`)
-      }
-    }),
+    check("rol").custom(isValidRole),
     validarCampos,
   ],
   usuariosPost

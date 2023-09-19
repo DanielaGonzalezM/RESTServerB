@@ -23,7 +23,6 @@ const usuariosPut = (req = request, res = response) => {
 };
 
 const usuariosPost = async (req = request, res = response) => {
-
   const { nombre, correo, password, rol } = req.body;
   const usuario = new Usuario({ nombre, correo, password, rol });
 
@@ -40,10 +39,7 @@ const usuariosPost = async (req = request, res = response) => {
   usuario.password = bcryptjs.hashSync(password, salt);
   //Guardar en BD
   await usuario.save();
-  res.status(201).json({
-    msg: "post API - controlador",
-    usuario,
-  });
+  res.status(201).json({ usuario });
 };
 const usuariosDelete = (req = request, res = response) => {
   res.json({
