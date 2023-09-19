@@ -9,7 +9,7 @@ const {
   usuariosPatch,
 } = require("../controllers/usuarios");
 const { validarCampos } = require("../middlewares/validar-campos");
-const { isValidRole } = require("../helpers/db-validators");
+const { isValidRole, emailExists } = require("../helpers/db-validators");
 
 const router = Router();
 
@@ -26,6 +26,7 @@ router.post(
     }),
     check("correo", "El correo no es válido").isEmail(),
     check("rol").custom(isValidRole),
+    check("correo").custom(emailExists),
     validarCampos,
   ],
   usuariosPost
